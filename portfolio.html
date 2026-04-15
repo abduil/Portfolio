@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Cybersecurity &amp; AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060a0f;
+  --bg2:#0c1219;
+  --bg3:#111820;
+  --cyan:#00e5ff;
+  --cyan-dim:rgba(0,229,255,0.12);
+  --cyan-mid:rgba(0,229,255,0.35);
+  --green:#39ff6e;
+  --white:#e8edf2;
+  --muted:#5a7080;
+  --border:rgba(0,229,255,0.1);
+  --font-head:'Syne',sans-serif;
+  --font-mono:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-mono);font-size:14px;line-height:1.7;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:999}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cyan-mid);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(6,10,15,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-id{font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--white);letter-spacing:0.02em}
+.nav-id span{color:var(--cyan)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-status{display:flex;align-items:center;gap:0.5rem;font-size:0.68rem;color:var(--green);letter-spacing:0.1em}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(57,255,110,0.4)}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(57,255,110,0)}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem 4rem;position:relative;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(0,229,255,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-20%;left:-10%;width:500px;height:500px;background:radial-gradient(ellipse,rgba(57,255,110,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-tag{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.7s 0.2s ease forwards}
+.hero-tag::before{content:'> ';color:var(--green)}
+.hero-name{font-family:var(--font-head);font-size:clamp(52px,8vw,110px);font-weight:800;line-height:0.95;letter-spacing:-0.02em;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.7s 0.35s ease forwards}
+.hero-name .cyan{color:var(--cyan)}
+.hero-name .outline{-webkit-text-stroke:2px var(--white);color:transparent}
+.hero-role{font-size:clamp(13px,1.4vw,16px);color:var(--muted);max-width:580px;line-height:1.9;margin-bottom:3rem;opacity:0;animation:fadeUp 0.7s 0.5s ease forwards}
+.hero-role strong{color:var(--white);font-weight:400}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s 0.65s ease forwards}
+.btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.85rem 1.8rem;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none}
+.btn-primary{background:var(--cyan);color:var(--bg);font-weight:700}
+.btn-primary:hover{background:var(--green);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--cyan);border:1px solid var(--cyan-mid)}
+.btn-outline:hover{background:var(--cyan-dim);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:3rem;font-size:0.65rem;letter-spacing:0.2em;color:var(--muted);display:flex;align-items:center;gap:0.75rem;opacity:0;animation:fadeUp 0.7s 0.9s ease forwards}
+.scroll-line{width:40px;height:1px;background:var(--muted);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;inset:0;background:var(--cyan);animation:scanRight 2s 1.5s ease-in-out infinite}
+@keyframes scanRight{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* SECTIONS */
+section{padding:7rem 3rem;border-top:1px solid var(--border)}
+.sec-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.75rem}
+.sec-label::before{content:'// '}
+.sec-title{font-family:var(--font-head);font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.05;margin-bottom:3rem;letter-spacing:-0.01em}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;border:1px solid var(--border)}
+.skill-cat{padding:2rem;background:var(--bg2);transition:background 0.3s}
+.skill-cat:hover{background:var(--bg3)}
+.skill-cat-title{font-family:var(--font-head);font-size:0.85rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem}
+.skill-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.skill-list li{font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:0.6rem;transition:color 0.2s}
+.skill-cat:hover .skill-list li{color:var(--white)}
+.skill-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+
+/* PROJECTS */
+.projects-list{display:flex;flex-direction:column;gap:1px}
+.project-card{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:start;transition:background 0.3s,border-color 0.3s;position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cyan);transform:scaleY(0);transform-origin:top;transition:transform 0.3s ease}
+.project-card:hover{background:var(--bg3);border-color:var(--cyan-mid)}
+.project-card:hover::before{transform:scaleY(1)}
+.project-num{font-family:var(--font-head);font-size:2rem;font-weight:800;color:rgba(0,229,255,0.15);line-height:1;min-width:3rem}
+.project-title{font-family:var(--font-head);font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:0.6rem}
+.project-desc{font-size:0.8rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;max-width:600px}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.7rem;border:1px solid var(--border);color:var(--cyan);background:var(--cyan-dim)}
+.project-arrow{font-size:1.2rem;color:var(--muted);transition:color 0.2s,transform 0.2s;align-self:center}
+.project-card:hover .project-arrow{color:var(--cyan);transform:translate(4px,-4px)}
+
+/* ABOUT */
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{font-size:0.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+.about-text p strong{color:var(--white);font-weight:400}
+.edu-box{margin-top:2rem;padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--green)}
+.edu-label{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem}
+.edu-degree{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.3rem}
+.edu-school{font-size:0.78rem;color:var(--muted)}
+.stats-side{display:flex;flex-direction:column;gap:1px}
+.stat-row{display:flex;align-items:center;gap:1.5rem;padding:1.8rem;background:var(--bg2);border:1px solid var(--border);transition:background 0.3s}
+.stat-row:hover{background:var(--bg3)}
+.stat-value{font-family:var(--font-head);font-size:2.8rem;font-weight:800;color:var(--cyan);line-height:1;min-width:90px}
+.stat-desc{font-size:0.78rem;color:var(--muted);line-height:1.5}
+.stat-desc strong{color:var(--white);display:block;margin-bottom:0.2rem;font-weight:500}
+
+/* CONTACT */
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact-heading{font-family:var(--font-head);font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.contact-heading span{color:var(--cyan)}
+.contact-sub{font-size:0.85rem;color:var(--muted);line-height:1.8;max-width:400px}
+.contact-links{display:flex;flex-direction:column;gap:1px}
+.contact-link{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;background:var(--bg2);border:1px solid var(--border);color:var(--white);text-decoration:none;transition:all 0.2s}
+.contact-link:hover{background:var(--bg3);border-color:var(--cyan-mid);padding-left:2.2rem}
+.contact-link-label{display:flex;align-items:center;gap:1rem;font-size:0.78rem}
+.contact-link-type{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);min-width:60px}
+.contact-link-value{color:var(--muted);font-size:0.78rem}
+.contact-arrow{color:var(--muted);font-size:1rem;transition:transform 0.2s}
+.contact-link:hover .contact-arrow{transform:translate(4px,-4px);color:var(--cyan)}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:0.68rem;color:var(--muted);letter-spacing:0.08em}
+.footer-copy span{color:var(--cyan)}
+.footer-built{font-size:0.68rem;color:var(--muted);letter-spacing:0.08em}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links,.nav-status{display:none}
+  .hero{padding:5rem 1.5rem 3rem}
+  section{padding:4rem 1.5rem}
+  .about-inner,.contact-inner{grid-template-columns:1fr}
+  .project-card{grid-template-columns:auto 1fr;gap:1rem}
+  .project-arrow{display:none}
+  footer{flex-direction:column;gap:0.5rem;text-align:center;padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-id">Your<span>.</span>Name</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    Available for work
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-tag">Cybersecurity &amp; AI Engineer — Dar es Salaam, Tanzania</div>
+  <h1 class="hero-name">
+    Securing<br>
+    the <span class="cyan">Digital</span><br>
+    <span class="outline">Frontier</span>
+  </h1>
+  <p class="hero-role">
+    Cyber Security &amp; Digital Forensics graduate specializing in
+    <strong>AI-powered threat detection</strong> and <strong>secure systems</strong>.
+    Building real-world solutions that protect users and organizations
+    across East Africa and beyond.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Scroll to explore
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sec-label">Capabilities</div>
+  <h2 class="sec-title reveal">Technical Skills</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-cat">
+      <div class="skill-cat-title">🔐 Cybersecurity</div>
+      <ul class="skill-list">
+        <li>Network Security</li>
+        <li>Vulnerability Assessment</li>
+        <li>Secure Software Development</li>
+        <li>Phishing Detection</li>
+        <li>Digital Forensics</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">🤖 AI / Machine Learning</div>
+      <ul class="skill-list">
+        <li>TensorFlow / Keras</li>
+        <li>Convolutional Neural Networks</li>
+        <li>Data Preprocessing</li>
+        <li>Model Evaluation</li>
+        <li>NLP — Swahili</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">💻 Programming</div>
+      <ul class="skill-list">
+        <li>Python</li>
+        <li>Flask</li>
+        <li>SQL</li>
+        <li>HTML / CSS / JS</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">☁️ Tools &amp; Platforms</div>
+      <ul class="skill-list">
+        <li>Jupyter Notebook</li>
+        <li>Git &amp; GitHub</li>
+        <li>Linux</li>
+        <li>Basic AWS</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-label">Work</div>
+  <h2 class="sec-title reveal">Selected Projects</h2>
+  <div class="projects-list">
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div>
+        <div class="project-title">Swahili Phishing Detection System</div>
+        <p class="project-desc">Built a machine learning model to detect phishing emails written in Swahili — addressing a critical gap in cybersecurity tools for East African users. Integrated real-time Gmail scanning via IMAP with a Flask web interface.</p>
+        <div class="project-tags">
+          <span class="tag">CNN</span><span class="tag">Flask</span><span class="tag">NLP</span><span class="tag">Gmail API</span><span class="tag">Python</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-title">AI Web System with Security Features</div>
+        <p class="project-desc">Developed an AI-based web application demonstrating secure SDLC practices. Implemented protections against SQL injection and input validation attacks, showing how AI and hardened security architecture coexist.</p>
+        <div class="project-tags">
+          <span class="tag">Secure SDLC</span><span class="tag">SQL Injection</span><span class="tag">Input Validation</span><span class="tag">Flask</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-title">Social Network Analysis</div>
+        <p class="project-desc">Applied graph-theoretic analysis to the Zachary Karate Club dataset. Used centrality metrics and the Girvan–Newman algorithm for community detection, with rich Python-based network visualizations.</p>
+        <div class="project-tags">
+          <span class="tag">NetworkX</span><span class="tag">Graph Theory</span><span class="tag">Community Detection</span><span class="tag">Python</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div>
+        <div class="project-title">Telecom Network Security Study (3G)</div>
+        <p class="project-desc">Analyzed 3G network architecture to identify security vulnerabilities. Documented exploitation vectors and proposed mitigation strategies with focus on real-world applicability in telecoms infrastructure.</p>
+        <div class="project-tags">
+          <span class="tag">3G Security</span><span class="tag">Vulnerability Analysis</span><span class="tag">Threat Modeling</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="sec-label">Background</div>
+  <h2 class="sec-title reveal">About Me</h2>
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <p>I'm a <strong>Cyber Security and Digital Forensics graduate</strong> with a strong interest in Artificial Intelligence and secure systems. My work sits at the intersection of two critical fields — using AI to make cybersecurity smarter, and applying security principles to make AI systems safer.</p>
+      <p>My flagship project — a <strong>Swahili-language phishing detection system</strong> — reflects my belief that cybersecurity tools must serve local communities. Most threat detection is built for English-speaking environments. I'm building for East Africa.</p>
+      <p>I'm passionate about creating solutions with <strong>real-world impact</strong>: protecting individuals, organizations, and digital infrastructure from the growing wave of cyber threats.</p>
+      <div class="edu-box">
+        <div class="edu-label">Education</div>
+        <div class="edu-degree">BSc Cyber Security &amp; Digital Forensics</div>
+        <div class="edu-school">Tanzania · [Your University Name]</div>
+      </div>
+    </div>
+    <div class="stats-side reveal">
+      <div class="stat-row">
+        <div class="stat-value">4</div>
+        <div class="stat-desc"><strong>Projects Completed</strong>Spanning ML, web security, and network analysis</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-value">2</div>
+        <div class="stat-desc"><strong>Core Domains</strong>Cybersecurity + Artificial Intelligence</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-value">1st</div>
+        <div class="stat-desc"><strong>Swahili Phishing Detector</strong>Addressing a genuine gap in regional security tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="sec-label">Get in Touch</div>
+      <div class="contact-heading">Let's <span>Work</span><br>Together</div>
+      <p class="contact-sub">Open to opportunities in cybersecurity, AI engineering, and research. Based in Dar es Salaam — available remotely worldwide.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:your@email.com" class="contact-link">
+        <div class="contact-link-label">
+          <span class="contact-link-type">Email</span>
+          <span class="contact-link-value">your@email.com</span>
+        </div>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+        <div class="contact-link-label">
+          <span class="contact-link-type">GitHub</span>
+          <span class="contact-link-value">github.com/yourusername</span>
+        </div>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+        <div class="contact-link-label">
+          <span class="contact-link-type">LinkedIn</span>
+          <span class="contact-link-value">linkedin.com/in/yourprofile</span>
+        </div>
+        <span class="contact-arrow">↗</span>
+      </a>
+      <a href="tel:+255XXXXXXXXX" class="contact-link">
+        <div class="contact-link-label">
+          <span class="contact-link-type">Phone</span>
+          <span class="contact-link-value">+255 XXX XXX XXX</span>
+        </div>
+        <span class="contact-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2025 <span>Your Name</span> — Cybersecurity &amp; AI</div>
+  <div class="footer-built">Built with HTML · Host on GitHub Pages for free</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)} });
+},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i*0.08)+'s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
